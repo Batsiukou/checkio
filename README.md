@@ -1,25 +1,20 @@
-def checkio(array: list) -> int:
+def left_join(phrases: tuple) -> str:
     """
-        sums even-indexes elements and multiply at the last
+        Join strings and replace "right" to "left"
     """
-    if len(array) == 0:
-        return 0
-    a = 0
-    b = 0
-    for i in array:
-        if a % 2 == 0:
-            b += i
-        a += 1
-    b = b * array[-1]
-    return b 
+    a = ''
+    for i in phrases:
+        i = i.replace('right', 'left')
+        a = a + ',' + i
+    return a[1:]
     
-#These "asserts" using only for self-checking and not necessary for auto-testing
 if __name__ == '__main__':
     print('Example:')
-    print(checkio([0, 1, 2, 3, 4, 5]))
+    print(left_join(("bright aright", "ok")))
     
-    assert checkio([0, 1, 2, 3, 4, 5]) == 30, "(0+2+4)*5=30"
-    assert checkio([1, 3, 5]) == 30, "(1+5)*5=30"
-    assert checkio([6]) == 36, "(6)*6=36"
-    assert checkio([]) == 0, "An empty array = 0"
+    #These "asserts" using only for self-checking and not necessary for auto-testing
+    assert left_join(("left", "right", "left", "stop")) == "left,left,left,stop", "All to left"
+    assert left_join(("bright aright", "ok")) == "bleft aleft,ok", "Bright Left"
+    assert left_join(("brightness wright",)) == "bleftness wleft", "One phrase"
+    assert left_join(("enough", "jokes")) == "enough,jokes", "Nothing to replace"
     print("Coding complete? Click 'Check' to review your tests and earn cool rewards!")
