@@ -1,25 +1,37 @@
-def days_diff(a, b):
-    from datetime import date
-    a = date(a[0], a[1], a[2])
-    b = date(b[0], b[1], b[2])
-    c = b - a
-    c = abs(c)
-    c = str(c)
-    d = ''
-    for i in c:
-        if i.isdigit():
-            d = d + i
-        else:
-            d = int(d)
-            return d
+def bigger_price(limit: int, data: list) -> list:
+    """
+        TOP most expensive goods
+    """
+    from operator import itemgetter
+    new_data = sorted(data, key=itemgetter("price"))
+    new_data = new_data[::-1]
+    return new_data[:limit]
 
 
 if __name__ == '__main__':
-    print("Example:")
-    print(days_diff((1982, 4, 19), (1982, 4, 22)))
+    from pprint import pprint
+    print('Example:')
+    pprint(bigger_price(2, [
+        {"name": "bread", "price": 100},
+        {"name": "wine", "price": 138},
+        {"name": "meat", "price": 15},
+        {"name": "water", "price": 1}
+    ]))
 
-    # These "asserts" are used for self-checking and not for an auto-testing
-    assert days_diff((1982, 4, 19), (1982, 4, 22)) == 3
-    assert days_diff((2014, 1, 1), (2014, 8, 27)) == 238
-    assert days_diff((2014, 8, 27), (2014, 1, 1)) == 238
-    print("Coding complete? Click 'Check' to earn cool rewards!")
+    # These "asserts" using for self-checking and not for auto-testing
+    assert bigger_price(2, [
+        {"name": "bread", "price": 100},
+        {"name": "wine", "price": 138},
+        {"name": "meat", "price": 15},
+        {"name": "water", "price": 1}
+    ]) == [
+        {"name": "wine", "price": 138},
+        {"name": "bread", "price": 100}
+    ], "First"
+
+    assert bigger_price(1, [
+        {"name": "pen", "price": 5},
+        {"name": "whiteboard", "price": 170}
+    ]) == [{"name": "whiteboard", "price": 170}], "Second"
+
+    print('Done! Looks like it is fine. Go and check it')
