@@ -1,37 +1,41 @@
-def bigger_price(limit: int, data: list) -> list:
-    """
-        TOP most expensive goods
-    """
-    from operator import itemgetter
-    new_data = sorted(data, key=itemgetter("price"))
-    new_data = new_data[::-1]
-    return new_data[:limit]
+def split_pairs(a):
+    b = ''
+    c = 0
+    e = []
+    if len(a) == 0:
+        e = a
+    elif len(a) % 2 == 0:
+        for i in a:
+            c += 1
+            b = b + i
+            if len(b) == 2:
+                a = a[c:]
+                b = b.split()
+                e = e + b
+                c = 0
+                b = ''
+    elif len(a) % 2 != 0:
+        a = a + '_'
+        for i in a:
+            c += 1
+            b = b + i
+            if len(b) == 2:
+                a = a[c:]
+                b = b.split()
+                e = e + b
+                c = 0
+                b = ''
+    return e   
 
 
 if __name__ == '__main__':
-    from pprint import pprint
-    print('Example:')
-    pprint(bigger_price(2, [
-        {"name": "bread", "price": 100},
-        {"name": "wine", "price": 138},
-        {"name": "meat", "price": 15},
-        {"name": "water", "price": 1}
-    ]))
+    print("Example:")
+    print(list(split_pairs('abcdf')))
 
-    # These "asserts" using for self-checking and not for auto-testing
-    assert bigger_price(2, [
-        {"name": "bread", "price": 100},
-        {"name": "wine", "price": 138},
-        {"name": "meat", "price": 15},
-        {"name": "water", "price": 1}
-    ]) == [
-        {"name": "wine", "price": 138},
-        {"name": "bread", "price": 100}
-    ], "First"
-
-    assert bigger_price(1, [
-        {"name": "pen", "price": 5},
-        {"name": "whiteboard", "price": 170}
-    ]) == [{"name": "whiteboard", "price": 170}], "Second"
-
-    print('Done! Looks like it is fine. Go and check it')
+    # These "asserts" are used for self-checking and not for an auto-testing
+    assert list(split_pairs('abcd')) == ['ab', 'cd']
+    assert list(split_pairs('abc')) == ['ab', 'c_']
+    assert list(split_pairs('abcdf')) == ['ab', 'cd', 'f_']
+    assert list(split_pairs('a')) == ['a_']
+    assert list(split_pairs('')) == []
+    print("Coding complete? Click 'Check' to earn cool rewards!")
