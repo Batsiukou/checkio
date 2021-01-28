@@ -1,41 +1,31 @@
-def split_pairs(a):
-    b = ''
+def nearest_value(values: set, one: int) -> int:
+    a = list(values)
+    a = (sorted(a))
     c = 0
-    e = []
-    if len(a) == 0:
-        e = a
-    elif len(a) % 2 == 0:
+    if a[-1] > one:
         for i in a:
             c += 1
-            b = b + i
-            if len(b) == 2:
-                a = a[c:]
-                b = b.split()
-                e = e + b
-                c = 0
-                b = ''
-    elif len(a) % 2 != 0:
-        a = a + '_'
-        for i in a:
-            c += 1
-            b = b + i
-            if len(b) == 2:
-                a = a[c:]
-                b = b.split()
-                e = e + b
-                c = 0
-                b = ''
-    return e   
+            b = abs(one - i)
+            d = abs(one - a[c])
+            if d < b:
+                continue
+            else:
+                return i
+    else:
+        return a[-1]
 
 
 if __name__ == '__main__':
     print("Example:")
-    print(list(split_pairs('abcdf')))
+    print(nearest_value({4, 7, 10, 11, 12, 17}, 9))
 
     # These "asserts" are used for self-checking and not for an auto-testing
-    assert list(split_pairs('abcd')) == ['ab', 'cd']
-    assert list(split_pairs('abc')) == ['ab', 'c_']
-    assert list(split_pairs('abcdf')) == ['ab', 'cd', 'f_']
-    assert list(split_pairs('a')) == ['a_']
-    assert list(split_pairs('')) == []
+    assert nearest_value({4, 7, 10, 11, 12, 17}, 9) == 10
+    assert nearest_value({4, 7, 10, 11, 12, 17}, 8) == 7
+    assert nearest_value({4, 8, 10, 11, 12, 17}, 9) == 8
+    assert nearest_value({4, 9, 10, 11, 12, 17}, 9) == 9
+    assert nearest_value({4, 7, 10, 11, 12, 17}, 0) == 4
+    assert nearest_value({4, 7, 10, 11, 12, 17}, 100) == 17
+    assert nearest_value({5, 10, 8, 12, 89, 100}, 7) == 8
+    assert nearest_value({-1, 2, 3}, 0) == -1
     print("Coding complete? Click 'Check' to earn cool rewards!")
