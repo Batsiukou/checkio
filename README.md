@@ -1,33 +1,25 @@
-def popular_words(text: str, words: list) -> dict:
-    text = text.lower().split()
-    b = 0
-    c = {}
-    for i in words:
-        a = text.count(words[b])
-        c[words[b]] = (a)
-        b += 1
-    return c
+def second_index(text: str, symbol: str) -> [int, None]:
+    """
+        returns the second index of a symbol in a given text
+    """
+    if symbol not in text:
+        return None
+    a = text.find(symbol)
+    text = text[a + 1:]
+    if symbol not in text:
+        return None
+    b = text.find(symbol)
+    return a + b + 1
 
 
 if __name__ == '__main__':
-    print("Example:")
-    print(popular_words('''
-When I was One
-I had just begun
-When I was Two
-I was nearly new
-''', ['i', 'was', 'three', 'near']))
+    print('Example:')
+    print(second_index("sims", "s"))
 
     # These "asserts" are used for self-checking and not for an auto-testing
-    assert popular_words('''
-When I was One
-I had just begun
-When I was Two
-I was nearly new
-''', ['i', 'was', 'three', 'near']) == {
-        'i': 4,
-        'was': 3,
-        'three': 0,
-        'near': 0
-    }
-    print("Coding complete? Click 'Check' to earn cool rewards!")
+    assert second_index("sims", "s") == 3, "First"
+    assert second_index("find the river", "e") == 12, "Second"
+    assert second_index("hi", " ") is None, "Third"
+    assert second_index("hi mayor", " ") is None, "Fourth"
+    assert second_index("hi mr Mayor", " ") == 5, "Fifth"
+    print('You are awesome! All tests are done! Go Check it!')
