@@ -1,27 +1,33 @@
-def between_markers(text: str, begin: str, end: str) -> str:
-    """
-        returns substring between two given markers
-    """
-    text = text.replace(begin, '%')
-    text = text.replace(end, '&')
-    a = text.find('%')
-    b = text.find('&')
-    if b == -1:
-        return text[a + 1:b]+text[-1]
-    else:
-        return text[a + 1:b]
+def popular_words(text: str, words: list) -> dict:
+    text = text.lower().split()
+    b = 0
+    c = {}
+    for i in words:
+        a = text.count(words[b])
+        c[words[b]] = (a)
+        b += 1
+    return c
 
 
 if __name__ == '__main__':
-    print('Example:')
-    print(between_markers('What is >apple<', '>', '<'))
+    print("Example:")
+    print(popular_words('''
+When I was One
+I had just begun
+When I was Two
+I was nearly new
+''', ['i', 'was', 'three', 'near']))
 
-    # These "asserts" are used for self-checking and not for testing
-    assert between_markers('What is >apple<', '>', '<') == "apple", "One sym"
-    assert between_markers("<head><title>My new site</title></head>",
-                           "<title>", "</title>") == "My new site", "HTML"
-    assert between_markers('No[/b] hi', '[b]', '[/b]') == 'No', 'No opened'
-    assert between_markers('No [b]hi', '[b]', '[/b]') == 'hi', 'No close'
-    assert between_markers('No hi', '[b]', '[/b]') == 'No hi', 'No markers at all'
-    assert between_markers('No <hi>', '>', '<') == '', 'Wrong direction'
-    print('Wow, you are doing pretty good. Time to check it!')
+    # These "asserts" are used for self-checking and not for an auto-testing
+    assert popular_words('''
+When I was One
+I had just begun
+When I was Two
+I was nearly new
+''', ['i', 'was', 'three', 'near']) == {
+        'i': 4,
+        'was': 3,
+        'three': 0,
+        'near': 0
+    }
+    print("Coding complete? Click 'Check' to earn cool rewards!")
