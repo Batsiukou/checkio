@@ -1,8 +1,13 @@
 def is_acceptable_password(password: str) -> bool:
     a = 0
+    b = 0
     for i in password:
         if i.isdigit():
             a += 1
+        elif i.isalpha():
+            b += 1
+    if b == 0:
+        return False
     if a > 0:
         if len(password) > 6:
             return True
@@ -10,7 +15,7 @@ def is_acceptable_password(password: str) -> bool:
             return False
     else:
         return False
- 
+
 
 if __name__ == '__main__':
     print("Example:")
