@@ -1,20 +1,25 @@
-def checkio(number: int) -> int:
-    a = 1
-    number = str(number)
-    for i in number:
-        i = int(i)
-        if i != 0:
-            a = a * i
+def is_acceptable_password(password: str) -> bool:
+    a = 0
+    for i in password:
+        if i.isdigit():
+            a += 1
+    if a > 0:
+        if len(password) > 6:
+            return True
         else:
-            continue
-    return a
-
+            return False
+    else:
+        return False
+ 
 
 if __name__ == '__main__':
-    print('Example:')
-    print(checkio(999))
-    
-checkio(123405) == 120
-checkio(999) == 729
-checkio(1000) == 1
-checkio(1111) == 1
+    print("Example:")
+    print(is_acceptable_password('shortjjj7'))
+
+    # These "asserts" are used for self-checking and not for an auto-testing
+    assert is_acceptable_password('short') == False
+    assert is_acceptable_password('muchlonger') == False
+    assert is_acceptable_password('ashort') == False
+    assert is_acceptable_password('muchlonger5') == True
+    assert is_acceptable_password('sh5') == False
+    print("Coding complete? Click 'Check' to earn cool rewards!")
