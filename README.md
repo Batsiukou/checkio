@@ -1,18 +1,24 @@
-def is_all_upper(text: str) -> bool:
-    if text.isupper():
+from typing import Iterable
+def is_ascending(items: Iterable[int]) -> bool:
+    if len(items) <= 1:
         return True
-    else:
+    if items[-2] > items[-1]:
         return False
-
+    a = 0
+    for i in items[: -1]:
+        a += 1
+        if i >= items[a]:
+            return False
+    return True
 
 if __name__ == '__main__':
     print("Example:")
-    print(is_all_upper('ALL UPPER'))
-
+    print(is_ascending([-5, 10, 99, 123456]))
+    
     # These "asserts" are used for self-checking and not for an auto-testing
-    assert is_all_upper('ALL UPPER') == True
-    assert is_all_upper('all lower') == False
-    assert is_all_upper('mixed UPPER and lower') == False
-    assert is_all_upper('') == False
+    assert is_ascending([-5, 10, 99, 123456]) == True
+    assert is_ascending([99]) == True
+    assert is_ascending([4, 5, 6, 7, 3, 7, 9]) == False
+    assert is_ascending([]) == True
+    assert is_ascending([1, 1, 1, 1]) == False
     print("Coding complete? Click 'Check' to earn cool rewards!")
-    assert is_acceptable_password('muchlonger5') == True
